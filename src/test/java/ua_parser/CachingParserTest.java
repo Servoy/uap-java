@@ -17,7 +17,7 @@ import org.junit.Test;
 public class CachingParserTest extends ParserTest {
 
   @Before
-  public void initParser() throws Exception {
+  public void initParser() {
     parser = new CachingParser();
   }
 
@@ -26,6 +26,16 @@ public class CachingParserTest extends ParserTest {
     InputStream yamlInput = new ByteArrayInputStream(
         configYamlAsString.getBytes("UTF8"));
     return new CachingParser(yamlInput);
+  }
+
+  @Test
+  public void testCachingParserCorrectSizeInit() throws Exception {
+      parser = new CachingParser(10);
+  }
+
+  @Test (expected = java.lang.AssertionError.class)
+  public void testCachingParserIncorrectSizeInit() throws Exception{
+      parser = new CachingParser(0);
   }
 
   @Test

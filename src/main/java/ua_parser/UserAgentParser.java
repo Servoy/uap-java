@@ -38,9 +38,11 @@ public class UserAgentParser {
 
   /**
    * Constructs a thread-safe UserAgentParser
+   * @param configList configure a user-agent parser from a list of regexp hashmaps
+   * @return user-agent parser
    */
   public static UserAgentParser fromList(List<Map<String,String>> configList) {
-    List<UAPattern> configPatterns = new ArrayList<UAPattern>();
+    List<UAPattern> configPatterns = new ArrayList<>();
 
     for (Map<String, String> configMap : configList) {
       configPatterns.add(UserAgentParser.patternFromMap(configMap));
@@ -59,7 +61,7 @@ public class UserAgentParser {
         return agent;
       }
     }
-    return new UserAgent("Other", null, null, null);
+    return UserAgent.OTHER;
   }
 
   protected static UAPattern patternFromMap(Map<String, String> configMap) {
